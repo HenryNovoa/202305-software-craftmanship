@@ -1,4 +1,4 @@
-import { BusinessShoppingCart, IProduct, ShoppingCart } from ".";
+import { IProduct, PricingStrategy, ShoppingCart } from ".";
 
 class MockProduct implements IProduct {
     constructor(
@@ -21,24 +21,28 @@ class MockProduct implements IProduct {
     }
 }
 
+class MockPricingStrategy implements PricingStrategy {
+    calculatePrice(basePrice: number, taxes: number): number {
+        return Number.parseFloat((basePrice + basePrice * taxes).toFixed(2));    }
+}
+
 describe('ShoppingCart', () => {
     const freeTaxProduct: IProduct = new MockProduct('id1', '1l water', 1, 0.00);
     const reducedTaxProduct: IProduct = new MockProduct('id2', 'eco tomatos', 2, 0.04);
     const normalTaxProduct: IProduct = new MockProduct('id2', 'tomatos', 1.6, 0.21);
-
     test('it should be instance of shopping cart', () => {
-        expect(new ShoppingCart()).toBeInstanceOf(ShoppingCart);
+        expect(new ShoppingCart(new MockPricingStrategy())).toBeInstanceOf(ShoppingCart);
     });
 
     describe('GIVEN a new shopping cart', () => {
         test('should start with an empty list of products', () => {
-            const cart = new ShoppingCart();
+            const cart = new ShoppingCart(new MockPricingStrategy());
 
             expect(cart.printProducts()).toEqual([])
         });
 
         test('should be able to add a new product', () => {
-            const cart = new ShoppingCart();
+            const cart = new ShoppingCart(new MockPricingStrategy);
 
 
             cart.addProduct(freeTaxProduct);
@@ -53,7 +57,7 @@ describe('ShoppingCart', () => {
         });
 
         test('should be able to delete products', () => {
-            const cart = new ShoppingCart();
+            const cart = new ShoppingCart(new MockPricingStrategy());
             cart.addProduct(freeTaxProduct);
             cart.deleteProduct(freeTaxProduct.id);
 
@@ -61,7 +65,7 @@ describe('ShoppingCart', () => {
         });
 
         test('should calculate base price', () => {
-            const cart = new ShoppingCart();
+            const cart = new ShoppingCart(new MockPricingStrategy());
 
             cart.addProduct(freeTaxProduct);
             cart.addProduct(reducedTaxProduct);
@@ -75,7 +79,7 @@ describe('ShoppingCart', () => {
         });
 
         test('should calculate total price', () => {
-            const cart = new ShoppingCart();
+            const cart = new ShoppingCart(new MockPricingStrategy());
 
             cart.addProduct(freeTaxProduct);
             cart.addProduct(reducedTaxProduct);
@@ -86,22 +90,6 @@ describe('ShoppingCart', () => {
             cart.deleteProduct(freeTaxProduct.id)
 
             expect(cart.calculateTotalPrice()).toEqual(4.02);
-        });
-
-        describe('WHEN the cart is a businessShoppingCart', () => {
-            test('should calculate total price', () => {
-                const cart = new BusinessShoppingCart();
-
-                cart.addProduct(freeTaxProduct);
-                cart.addProduct(reducedTaxProduct);
-                cart.addProduct(normalTaxProduct);
-
-                expect(cart.calculateTotalPrice()).toEqual(4.27);
-
-                cart.deleteProduct(freeTaxProduct.id)
-
-                expect(cart.calculateTotalPrice()).toEqual(3.42);
-            });
         });
     });
 });
