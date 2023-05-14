@@ -1,10 +1,5 @@
-const BUSINESS_PRICE_DISCOUNT = 0.15;
-
-export interface IProduct {
-    get id(): string;
-    get basePrice(): number;
-    get taxes(): number;
-}
+import { IProduct } from '../product/Product';
+import { PricingStrategy } from '../strategy/PricingStrategy';
 
 interface ICart {
     printProducts(): IProduct[];
@@ -41,28 +36,5 @@ export class ShoppingCart implements ICart {
         return this.products.reduce((total, product) => {
             return total += this.pricingStrategy.calculatePrice(product.basePrice, product.taxes);
         }, 0);
-    }
-
-    protected priceWithTax(basePrice: number, taxes: number) {
-        return Number.parseFloat((basePrice + basePrice * taxes).toFixed(2));
-    }
-}
-
-export interface PricingStrategy {
-    calculatePrice(basePrice: number, taxes: number): number;
-}
-
-export class StandardPricingStrategy implements PricingStrategy {
-    calculatePrice(basePrice: number, taxes: number): number {
-        return Number.parseFloat((basePrice + basePrice * taxes).toFixed(2));
-    }
-}
-
-export class BusinessPricingStrategy implements PricingStrategy {
-    private BASE_DISCOUNT: number = BUSINESS_PRICE_DISCOUNT;
-
-    calculatePrice(basePrice: number, taxes: number): number {
-        const basePriceWithDiscount = basePrice - basePrice * this.BASE_DISCOUNT;
-        return Number.parseFloat((basePriceWithDiscount + basePriceWithDiscount * taxes).toFixed(2));
     }
 }

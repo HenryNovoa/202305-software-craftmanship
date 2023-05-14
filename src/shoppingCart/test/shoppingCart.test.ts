@@ -1,4 +1,8 @@
-import { IProduct, PricingStrategy, ShoppingCart } from ".";
+import { ShoppingCart } from '../cart/Cart';
+import { IProduct } from '../product/Product';
+import { PricingStrategy } from '../strategy/PricingStrategy';
+
+
 
 class MockProduct implements IProduct {
     constructor(
@@ -23,7 +27,7 @@ class MockProduct implements IProduct {
 
 class MockPricingStrategy implements PricingStrategy {
     calculatePrice(basePrice: number, taxes: number): number {
-        return Number.parseFloat((basePrice + basePrice * taxes).toFixed(2));    }
+        return basePrice + taxes; }
 }
 
 describe('ShoppingCart', () => {
@@ -85,11 +89,12 @@ describe('ShoppingCart', () => {
             cart.addProduct(reducedTaxProduct);
             cart.addProduct(normalTaxProduct);
 
-            expect(cart.calculateTotalPrice()).toEqual(5.02);
+            expect(cart.calculateTotalPrice()).toEqual(4.85);
 
             cart.deleteProduct(freeTaxProduct.id)
 
-            expect(cart.calculateTotalPrice()).toEqual(4.02);
+            expect(cart.calculateTotalPrice()).toEqual(3.85);
         });
     });
 });
+
