@@ -1,6 +1,7 @@
 export interface IPressureThreshold {
+  // eslint-disable-next-line
   check(value: number): boolean
-};
+}
 
 export class PressureThreshold implements IPressureThreshold {
   private highPressureThreshold: number;

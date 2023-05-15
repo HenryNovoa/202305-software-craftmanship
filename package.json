@@ -11,7 +11,9 @@
       "test": "jest",
       "prepare": "husky install",
       "-----": "---------CI----------",
-      "ci:test": "npm test -- --coverage --watchAll=false"
+      "ci:test": "npm test -- --coverage --watchAll=false",
+      "lint": "eslint ./src/**/*.ts",
+      "lint:fix": "eslint --fix ./src/**/*.ts"
     },
     "repository": {
       "type": "git",
