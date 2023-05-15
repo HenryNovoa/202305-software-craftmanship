@@ -1,7 +1,7 @@
-import { Product } from '../product/Product';
-import { PricingStrategy } from '../strategy/PricingStrategy';
+import { Product } from '../product';
+import { PricingStrategy } from '../strategy';
 
-interface ICart {
+interface Cart {
     printProducts(): Product[];
     addProduct(product: Product): void;
     deleteProduct(name: string): void;
@@ -9,7 +9,7 @@ interface ICart {
     calculateTotalPrice(): number;
 }
 
-export class ShoppingCart implements ICart {
+export class ShoppingCart implements Cart {
     protected products: Product[] = [];
     protected pricingStrategy: PricingStrategy;
 
@@ -28,13 +28,13 @@ export class ShoppingCart implements ICart {
     deleteProduct(id: string): void {
         this.products = this.products.filter(item => item.id !== id);
     }
-     calculateBasePrice(): number {
-        return this.products.reduce((total, product) => total += product.basePrice, 0);
+    calculateBasePrice(): number {
+        return this.products.reduce((total, product) => total + product.basePrice, 0);
     }
 
     calculateTotalPrice(): number {
         return this.products.reduce((total, product) => {
-            return total += this.pricingStrategy.calculatePrice(product.basePrice, product.taxes);
+            return total + this.pricingStrategy.calculatePrice(product.basePrice, product.taxes);
         }, 0);
     }
 }

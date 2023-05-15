@@ -1,4 +1,4 @@
-import { Product } from '../Product';
+import { Product } from '..';
 
 export class MockProduct implements Product {
     constructor(
@@ -6,8 +6,5 @@ export class MockProduct implements Product {
         readonly name: string,
         readonly basePrice: number,
         readonly taxes: number,
-    ) {
-
-     }
-
+    ) {}
 }
