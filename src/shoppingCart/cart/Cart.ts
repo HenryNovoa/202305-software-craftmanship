@@ -1,27 +1,27 @@
-import { IProduct } from '../product/Product';
+import { Product } from '../product/Product';
 import { PricingStrategy } from '../strategy/PricingStrategy';
 
 interface ICart {
-    printProducts(): IProduct[];
-    addProduct(product: IProduct): void;
+    printProducts(): Product[];
+    addProduct(product: Product): void;
     deleteProduct(name: string): void;
     calculateBasePrice(): number;
     calculateTotalPrice(): number;
 }
 
 export class ShoppingCart implements ICart {
-    protected products: IProduct[] = [];
+    protected products: Product[] = [];
     protected pricingStrategy: PricingStrategy;
 
 
     constructor(pricingStrategy: PricingStrategy) {
         this.pricingStrategy = pricingStrategy;
     }
-    printProducts(): IProduct[] {
+    printProducts(): Product[] {
         return this.products;
     }
 
-    addProduct(product: IProduct): void {
+    addProduct(product: Product): void {
         this.products.push(product);
     }
 
