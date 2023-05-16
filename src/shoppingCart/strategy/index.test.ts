@@ -1,4 +1,4 @@
-import { BusinessPricingStrategy, StandardPricingStrategy } from ".";
+import { BusinessPricingStrategy, StandardPricingStrategy } from '.';
 
 describe('Pricing Strategy', () => {
   const standardPricingStrategy = new StandardPricingStrategy();

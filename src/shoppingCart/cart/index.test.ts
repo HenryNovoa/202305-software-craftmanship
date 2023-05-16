@@ -1,6 +1,6 @@
-import { MockProduct } from "../product/__mocks__";
-import { MockPricingStrategy } from "../strategy/__mocks__";
-import { ShoppingCart } from ".";
+import { MockProduct } from '../product/__mocks__';
+import { MockPricingStrategy } from '../strategy/__mocks__';
+import { ShoppingCart } from '.';
 
 describe('ShoppingCart', () => {
   const freeTaxProduct = new MockProduct('id1', '1l water', 1, 0.00);
@@ -15,11 +15,11 @@ describe('ShoppingCart', () => {
     test('should start with an empty list of products', () => {
       const cart = new ShoppingCart(new MockPricingStrategy());
 
-      expect(cart.printProducts()).toEqual([])
+      expect(cart.printProducts()).toEqual([]);
     });
 
     test('should be able to add a new product', () => {
-      const cart = new ShoppingCart(new MockPricingStrategy);
+      const cart = new ShoppingCart(new MockPricingStrategy());
 
       cart.addProduct(freeTaxProduct);
       cart.addProduct(reducedTaxProduct);
@@ -28,8 +28,8 @@ describe('ShoppingCart', () => {
       expect(cart.printProducts()).toEqual([
         freeTaxProduct,
         reducedTaxProduct,
-        normalTaxProduct
-      ])
+        normalTaxProduct,
+      ]);
     });
 
     test('should be able to delete products', () => {
@@ -37,7 +37,7 @@ describe('ShoppingCart', () => {
       cart.addProduct(freeTaxProduct);
       cart.deleteProduct(freeTaxProduct.id);
 
-      expect(cart.printProducts()).toEqual([])
+      expect(cart.printProducts()).toEqual([]);
     });
 
     test('should calculate base price', () => {
@@ -49,7 +49,7 @@ describe('ShoppingCart', () => {
 
       expect(cart.calculateBasePrice()).toEqual(4.6);
 
-      cart.deleteProduct(freeTaxProduct.id)
+      cart.deleteProduct(freeTaxProduct.id);
 
       expect(cart.calculateBasePrice()).toEqual(3.6);
     });
@@ -63,7 +63,7 @@ describe('ShoppingCart', () => {
 
       expect(cart.calculateTotalPrice()).toEqual(4.85);
 
-      cart.deleteProduct(freeTaxProduct.id)
+      cart.deleteProduct(freeTaxProduct.id);
 
       expect(cart.calculateTotalPrice()).toEqual(3.85);
     });

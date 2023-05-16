@@ -10,10 +10,9 @@
       "start": "node dist/server.js",
       "test": "jest",
       "prepare": "husky install",
+      "lint:fix": "eslint --fix ./src/**/*.ts",
       "-----": "---------CI----------",
-      "ci:test": "npm test -- --coverage --watchAll=false",
-      "lint": "eslint ./src/**/*.ts",
-      "lint:fix": "eslint --fix ./src/**/*.ts"
+      "ci:test": "npm test -- --coverage --watchAll=false"
     },
     "repository": {
       "type": "git",

@@ -16,5 +16,6 @@ module.exports = {
     indent: ['Error', 2],
     'object-curly-spacing': ['Error', 'always'],
     'operator-linebreak': ['error', 'after'],
+    'no-unused-vars': 'off',
   },
 };
