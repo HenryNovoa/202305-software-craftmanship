@@ -11,6 +11,7 @@
       "test": "jest",
       "prepare": "husky install",
       "lint:fix": "eslint --fix ./src/**/*.ts",
+      "editor:fix": "editorconfig-tools fix",
       "-----": "---------CI----------",
       "ci:test": "npm test -- --coverage --watchAll=false"
     },
