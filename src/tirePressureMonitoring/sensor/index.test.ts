@@ -1,4 +1,4 @@
-import { Sensor, ISensor } from '../sensor';
+import { Sensor, ISensor } from '.';
 
 describe('Sensor', () => {
   let sensor: ISensor;

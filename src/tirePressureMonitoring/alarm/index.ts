@@ -1,5 +1,5 @@
-import { IPressureThreshold } from './pressureThreshold';
-import { ISensor } from './sensor';
+import { IPressureThreshold } from "../pressureThreshold";
+import { ISensor } from "../sensor";
 
 export default class Alarm {
   private sensor: ISensor;

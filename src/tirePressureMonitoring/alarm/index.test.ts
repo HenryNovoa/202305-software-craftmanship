@@ -1,4 +1,4 @@
-import Alarm from '../alarm';
+import Alarm from '.';
 import { ISensor } from '../sensor';
 import { IPressureThreshold } from '../pressureThreshold';
 

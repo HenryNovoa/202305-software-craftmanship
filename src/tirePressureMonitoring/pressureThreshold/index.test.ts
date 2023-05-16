@@ -1,4 +1,4 @@
-import { PressureThreshold, IPressureThreshold  } from '../pressureThreshold';
+import { PressureThreshold, IPressureThreshold  } from '.';
 
 describe('PressureThreshold', () => {
   let pressureThreshold: IPressureThreshold;
