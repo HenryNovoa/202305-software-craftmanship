@@ -1,17 +1,17 @@
 import { AbstractCar, Car } from '../car';
 import { Colors, Engine, Extras, Model, Transmission } from './types';
 
-interface Builder<T> {
+interface Builder {
   reset(): void;
-  setModel(model: Model): T;
-  setColor(color: Colors): T;
-  setTransmission(transmission: Transmission): T;
-  setEngine(engine: Engine): T;
-  setExtras(extras: Extras[]): T;
+  setModel(model: Model): Builder;
+  setColor(color: Colors): Builder;
+  setTransmission(transmission: Transmission): Builder;
+  setEngine(engine: Engine): Builder;
+  setExtras(extras: Extras[]): Builder;
   getResult(): AbstractCar;
 }
 
-export class CarBuilder implements Builder<CarBuilder> {
+export class CarBuilder implements Builder {
   private car: AbstractCar;
 
   constructor() {
