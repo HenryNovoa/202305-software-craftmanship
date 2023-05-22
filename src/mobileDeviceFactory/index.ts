@@ -35,6 +35,18 @@ class Model1Camera implements BaseCamera {
   }
 }
 
+class Model2Screen implements BaseScreen {
+  display(): string {
+    return 'this is a model 2 screen';
+  }
+}
+
+class Model2CPU implements BaseCPU {
+  process(): string {
+    return 'this is a model 2 cpu';
+  }
+}
+
 class Model2Battery implements BaseBattery {
   charge(): string {
     return 'this is a model 2 battery';
@@ -64,7 +76,7 @@ export class XiaomiComponentsFactory implements MobileDeviceComponentsFactory {
   }
 
   createBattery(): BaseBattery {
-    return new Model1Battery()
+    return new Model1Battery();
   }
 
   createCamera(): BaseCamera {
@@ -82,7 +94,25 @@ export class SamsungComponentsFactory implements MobileDeviceComponentsFactory {
   }
 
   createBattery(): BaseBattery {
-    return new Model2Battery()
+    return new Model2Battery();
+  }
+
+  createCamera(): BaseCamera {
+    return new Model2Camera();
+  }
+}
+
+export class OPPOComponentsFactory implements MobileDeviceComponentsFactory {
+  createScreen(): BaseScreen {
+    return new Model1Screen();
+  }
+
+  createCPU(): BaseCPU {
+    return new Model1CPU();
+  }
+
+  createBattery(): BaseBattery {
+    return new Model1Battery();
   }
 
   createCamera(): BaseCamera {
@@ -91,7 +121,7 @@ export class SamsungComponentsFactory implements MobileDeviceComponentsFactory {
 }
 
 interface BaseMobileDeviceFactory {
-  ensambleMobileDevice()
+  ensambleMobileDevice(): MobileDevice;
 }
 
 abstract class MobileDevice {
@@ -114,8 +144,8 @@ export class MobileDeviceFactory implements BaseMobileDeviceFactory {
       battery: this.factory.createBattery(),
       cpu: this.factory.createCPU(),
       camera: this.factory.createCamera(),
-      screen: this.factory.createScreen()
-    }
+      screen: this.factory.createScreen(),
+    };
 
     return this.device;
   }
