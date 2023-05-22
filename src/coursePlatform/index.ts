@@ -26,7 +26,7 @@ export abstract class BaseComponent {
   abstract getType(): string;
 }
 
-enum componentType {
+export enum componentType {
   COURSE = 'course',
   VIDEO = 'video',
   POST = 'post',
@@ -34,7 +34,7 @@ enum componentType {
   LINK = 'link',
 }
 
-export class Course extends BaseComponent {
+class Course extends BaseComponent {
   #type = componentType.COURSE;
 
   getType(): string {
@@ -42,7 +42,7 @@ export class Course extends BaseComponent {
   }
 }
 
-export class Video extends BaseComponent {
+class Video extends BaseComponent {
   #type = componentType.VIDEO;
 
   getType(): string {
@@ -50,7 +50,7 @@ export class Video extends BaseComponent {
   }
 }
 
-export class Post extends BaseComponent {
+class Post extends BaseComponent {
   #type = componentType.POST;
 
   getType(): string {
@@ -58,7 +58,7 @@ export class Post extends BaseComponent {
   }
 }
 
-export class Podcast extends BaseComponent {
+class Podcast extends BaseComponent {
   #type = componentType.PODCAST;
 
   getType(): string {
@@ -66,10 +66,28 @@ export class Podcast extends BaseComponent {
   }
 }
 
-export class Link extends BaseComponent {
+class Link extends BaseComponent {
   #type = componentType.LINK;
 
   getType(): string {
     return this.#type;
+  }
+}
+
+type ComponentsMapType = {
+  [type in componentType]: new (name?: string) => BaseComponent;
+};
+
+export class ComponentsFactory {
+  #components: ComponentsMapType = {
+    [componentType.COURSE]: Course,
+    [componentType.VIDEO]: Video,
+    [componentType.POST]: Post,
+    [componentType.PODCAST]: Podcast,
+    [componentType.LINK]: Link,
+  };
+
+  create(type: componentType, name?: string): BaseComponent {
+    return new this.#components[type](name);
   }
 }
